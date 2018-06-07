@@ -7,14 +7,31 @@ ${URL}  http://automationpractice.com
 
 *** Keywords ***
 # Setup
-Abrir navegador A
+Start browser
     Open Browser  about:blank  ${BROWSER}
 
 #Teardown
-Fechar navegador A
+Stop browser
     Close Browser 
 
 #Step Definitions
-Acessar a página home do site
+Access homepage
     Go To  ${URL}
-    Title Should Be   My Store
+
+Check if homepage is displayed
+    Title Should Be  My Store
+
+Search for "${var}"
+    Input Text  name=search_query  ${var}
+
+Click on button Search
+    Click Button   name=submit_search
+
+Check "${var}" is displayed
+    wait until Element is Visible  class=product-container
+    Page Should Contain Image      xpath=//div[@id='center_column']//*[@src='http://automationpractice.com/img/p/7/7-home_default.jpg']
+    Page Should Contain Link       xpath=//div[@id='center_column']//a[@class='product-name'][contains(text(),${var})]
+
+Check error message "${text}"
+    wait until Element is Visible  xpath=//div[@id='center_column']/p
+    Element Text Should Be       xpath=//div[@id='center_column']/p  ${text}
