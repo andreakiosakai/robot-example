@@ -1,5 +1,5 @@
 *** Settings ***
-Resource        .../../resource/resourceATDD.robot
+Resource        ../../resource/Web/resourceATDD.robot
 Test Setup      Start browser
 Test Teardown   Stop browser
 
